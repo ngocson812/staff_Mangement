@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IStaffRepo extends JpaRepository<Staff, Integer> {
-    @Query("SELECT s FROM Staff s WHERE CONCAT(s.staffName,s.staffCode,s.dateStartWork) LIKE %?1%")
-    Page<Staff> search(Pageable pageable, String keyword);
+    void deleteById(Long id);
+    Optional<Object> findById(Long id);
 }
