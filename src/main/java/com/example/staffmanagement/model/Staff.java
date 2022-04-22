@@ -1,6 +1,8 @@
 package com.example.staffmanagement.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,9 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Staff {
+@NoArgsConstructor
+@AllArgsConstructor(staticName = "build")
+public class Staff{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,4 +24,6 @@ public class Staff {
     private String gender;
     private String homeTown;
     private LocalDate dateStartWork;
+    private boolean deleted;
+
 }

@@ -1,14 +1,13 @@
 package com.example.staffmanagement.service.impl;
 
 import com.example.staffmanagement.dto.Search;
-import com.example.staffmanagement.dto.StaffDTO;
+import com.example.staffmanagement.dto.StaffDto;
 import com.example.staffmanagement.model.Staff;
 import com.example.staffmanagement.repository.IStaffRepo;
 import com.example.staffmanagement.service.IStaffService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +30,9 @@ public class StaffService implements IStaffService {
     private EntityManager entityManager;
 
     @Override
-    public Staff save(Staff staff) {
-        return staffRepo.save(staff);
+    public Staff save(StaffDto staff) {
+        Staff s = Staff.build(0L, staff.getCode(), staff.getName(), staff.getDateOfBirth(),staff.getGender(),staff.getHomeTown(),staff.getDateStartWork(),staff.isDeleted());
+        return staffRepo.save(s);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class StaffService implements IStaffService {
     }
 
     @Override
-    public Page<StaffDTO> search(Search search, Pageable pageable) {
+    public Page<StaffDto> search(Search search, Pageable pageable) {
         StringBuilder builder = new StringBuilder();
         Map<String, Object> params = new HashMap<>();
         builder.append("select s ");
@@ -64,9 +64,8 @@ public class StaffService implements IStaffService {
         for (String key : params.keySet()) {
             query.setParameter(key, params.get(key));
         }
-        List<StaffDTO> list = query.getResultList();
-        Page<StaffDTO> page = new PageImpl<StaffDTO>(list, pageable, list.size());
-        PageRequest.of(0,20);
+        List<StaffDto> list = query.getResultList();
+        Page<StaffDto> page = new PageImpl<StaffDto>(list, pageable, list.size());
         return page;
     }
 }
