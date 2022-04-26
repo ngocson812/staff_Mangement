@@ -1,4 +1,4 @@
-package com.example.staffmanagement.dto;
+package com.example.staffmanagement.dto.request;
 
 import lombok.Data;
 

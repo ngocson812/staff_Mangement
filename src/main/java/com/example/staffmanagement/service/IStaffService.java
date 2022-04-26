@@ -1,16 +1,14 @@
 package com.example.staffmanagement.service;
 
-import com.example.staffmanagement.dto.Search;
-import com.example.staffmanagement.dto.StaffDto;
-import com.example.staffmanagement.model.Staff;
+import com.example.staffmanagement.dto.request.Search;
+import com.example.staffmanagement.dto.response.StaffDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 public interface IStaffService {
-    Staff save(StaffDto staff);
+    StaffDto save(StaffDto staff);
     void deleteById(Long id);
-    Page<StaffDto> search(Search search, Pageable pageable);
-    Optional<Object> findById(Long id);
+    Page<StaffDto> search(Search search,int page, int size);
+    StaffDto findById(Long id);
+    StaffDto update(Long id, StaffDto staffDto);
+    long count(Search search);
 }

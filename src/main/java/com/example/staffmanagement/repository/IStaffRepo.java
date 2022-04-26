@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface IStaffRepo extends JpaRepository<Staff, Integer> {
-    void deleteById(Long id);
-    Optional<Object> findById(Long id);
+    Optional<Staff>findByIdAndDeletedIsFalse(Long id);
+    Optional<Staff> findById(Long id);
 }

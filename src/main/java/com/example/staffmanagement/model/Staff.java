@@ -1,8 +1,9 @@
 package com.example.staffmanagement.model;
 
+import com.example.staffmanagement.dto.response.StaffDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +13,6 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor(staticName = "build")
 public class Staff{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +25,14 @@ public class Staff{
     private LocalDate dateStartWork;
     private boolean deleted;
 
+    public Staff(StaffDto source) {
+        BeanUtils.copyProperties(source,this);
+    }
+
+    public Staff() {
+    }
+
+    public void update(StaffDto source) {
+        BeanUtils.copyProperties(source,this,"code");
+    }
 }
